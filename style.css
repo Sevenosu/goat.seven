@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fond de la page avec image floutée et assombrie */
+body {
+  background-color: #111; /* Fond noir de secours si l'image ne charge pas */
+  color: white;
+  font-family: 'Space Mono', monospace;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Nouvelle image de fond floutée avec overlay sombre */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://th.bing.com/th/id/OIP.pdAL3bXd7rW2AqcjDuzVyAHaEo?rs=1&pid=ImgDetMain');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: blur(5px); /* Applique un flou léger */
+  z-index: -1; /* S'assure que l'arrière-plan est derrière le contenu */
+}
+
+/* Overlay sombre pour assombrir l'image */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Couleur noire avec opacité */
+  z-index: -1; /* S'assure que l'overlay est derrière le contenu mais au-dessus de l'image */
+}
+
+/* Conteneur du contenu pour qu'il soit au-dessus de l'image */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Style de l'image de profil en cercle */
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid rgba(255, 0, 0, 0.6); /* Bordure rouge vif */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet de survol de l'image */
+.profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* Lueur rouge */
+}
+
+/* Style du titre principal */
+h1 {
+  font-size: 3rem;
+  color: #ff4d4d; /* Rouge vif */
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.5); /* Lueur rouge plus forte */
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Effet de survol du titre */
+h1:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 15px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.8); /* Lueur rouge plus intense */
+}
+
+/* Style du sous-titre */
+h2 {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8); /* Blanc plus doux pour le sous-titre */
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Effet de survol du sous-titre */
+h2:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3); /* Lueur blanche subtile */
+}
+
+/* Conteneur des boutons */
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Style des boutons */
+.button {
+  background-color: rgba(255, 0, 0, 0.3); /* Fond rouge discret pour les boutons */
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 0, 0, 0.6); /* Bordure rouge vif */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Effet de survol des boutons */
+.button:hover {
+  background-color: rgba(255, 0, 0, 0.6); /* Fond rouge plus lumineux sur le survol */
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.6); /* Lueur rouge autour du bouton */
+}
+
+/* Effet pour les liens au survol */
+.button:active {
+  transform: translateY(2px);
+}
