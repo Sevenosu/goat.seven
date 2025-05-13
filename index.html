@@ -8,8 +8,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Page d'intro -->
+  <div id="intro">
+    <h1>Seven</h1>
+  </div>
+
+  <!-- Contenu du site -->
   <div class="container">
-    <!-- Photo de profil en cercle au-dessus du titre -->
     <img src="https://wallpapercave.com/wp/wp4999033.jpg" alt="Photo de profil" class="profile-image">
     <h1>Seven</h1>
     <h2>Future osu GOAT :3</h2>
@@ -20,5 +25,16 @@
       <a href="https://discord.gg/gEnVNcXj" target="_blank" class="button">discord</a>
     </div>
   </div>
+
+  <script>
+    // Quand l'utilisateur clique sur l'écran, on enlève la page d'intro
+    document.getElementById('intro').addEventListener('click', function() {
+      this.style.opacity = '0';  // Début de la disparition
+      this.style.pointerEvents = 'none'; // Empêche toute interaction après disparition
+      setTimeout(() => {
+        this.style.display = 'none';  // Cache complètement après l'animation
+      }, 1000);  // Attendre la fin de l'animation
+    });
+  </script>
 </body>
 </html>
