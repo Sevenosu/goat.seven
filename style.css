@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-/* Corps de la page */
 body {
   background-color: #111;
   color: white;
@@ -18,21 +17,18 @@ body {
   position: relative;
 }
 
-/* Fond flou sombre */
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('https://th.bing.com/th/id/OIP.pdAL3bXd7rW2AqcjDuzVyAHaEo?rs=1&pid=ImgDetMain') center/cover no-repeat;
-  filter: blur(6px);
-  z-index: -2;
-}
-body::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
+/* Vidéo de fond (après intro) */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
   z-index: -1;
+  opacity: 0.4;
+  pointer-events: none;
+  display: none;
 }
 
 /* Écran d’intro */
@@ -47,26 +43,27 @@ body::after {
   transition: opacity 1s ease;
   z-index: 10;
 }
+
 .intro-title {
   font-size: 4rem;
   font-family: 'Orbitron', sans-serif;
-  color: #ff4d4d;
+  color: white;
   margin-bottom: 1rem;
-  text-shadow: 0 0 10px rgba(255,0,0,0.6);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
-/* Texte “Clique pour entrer” : fondu doux et réapparaît */
+
+/* Texte clignotant doucement */
 .intro-text {
   font-size: 1.2rem;
   color: #aaa;
-  animation: gentleBlink 2s ease-in-out infinite;
+  animation: gentleBlink 2.5s ease-in-out infinite;
 }
-
 @keyframes gentleBlink {
   0%, 100% { opacity: 1; }
   50%      { opacity: 0; }
 }
 
-/* Particules rouges (uniquement dans l'intro) */
+/* Particules blanches (intro uniquement) */
 #intro .particles {
   position: absolute;
   inset: 0;
@@ -76,13 +73,13 @@ body::after {
 }
 #intro .particle {
   position: absolute;
-  background: rgba(255,0,0,0.8);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   animation: floatUp linear infinite;
   opacity: 0.7;
 }
 @keyframes floatUp {
-  0%   { transform: translateY(0);   opacity: 0.8; }
+  0%   { transform: translateY(0); opacity: 0.8; }
   100% { transform: translateY(-100vh); opacity: 0; }
 }
 
@@ -93,72 +90,96 @@ body::after {
   align-items: center;
   justify-content: center;
   z-index: 1;
+  position: relative;
   animation: fadeIn 1s ease forwards;
+  text-align: center;
+  padding: 30px;
 }
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
-/* Image de profil */
+.container::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  backdrop-filter: blur(15px);
+  z-index: -1;
+}
+
+/* Photo de profil */
 .profile-image {
-  width: 150px; height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px;
-  border: 3px solid rgba(255,0,0,0.6);
+  margin-bottom: 10px;
+  border: 3px solid rgba(255, 0, 0, 0.6);
   transition: transform .3s ease, box-shadow .3s ease;
 }
 .profile-image:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255,0,0,0.8);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
 }
 
-/* Titres */
-h1 {
-  font-size: 3rem;
-  color: #ff4d4d;
-  text-shadow: 0 0 10px rgba(255,0,0,.5), 0 0 20px rgba(255,0,0,.5);
-  margin-bottom: 20px;
-  transition: transform .3s ease, text-shadow .3s ease;
-}
-h1:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 15px rgba(255,0,0,.8), 0 0 30px rgba(255,0,0,.8);
-}
-h2 {
-  font-size: 1.5rem;
-  color: rgba(255,255,255,.8);
-  margin-bottom: 30px;
-  transition: transform .3s ease, text-shadow .3s ease;
-}
-h2:hover {
-  transform: scale(1.05);
-  text-shadow: 0 0 10px rgba(255,255,255,.5), 0 0 20px rgba(255,255,255,.3);
-}
-
-/* Boutons de liens */
+/* Liens / logos */
 .links {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  justify-content: space-evenly;  /* Espacement uniforme entre les logos */
+  gap: 2rem;  /* Optionnel, mais si tu veux un espacement supplémentaire, tu peux ajuster cela */
+  margin-top: 20px;
+  position: relative;
+  z-index: 10;
+  width: 100%; /* S'assurer que le conteneur occupe toute la largeur de son parent */
+}
+
+.logo-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   justify-content: center;
+  transition: transform 0.2s ease;
 }
-.button {
-  background: rgba(255,0,0,0.3);
-  padding: 15px 30px;
-  font-size: 1.2rem;
+
+.logo-button:hover {
+  transform: scale(1.1);
+}
+
+/* Taille spécifique pour le logo osu! */
+.osu-logo {
+  height: 55px; /* Plus grand que les autres logos */
+  width: auto;
+}
+
+.logo {
+  height: 50px; /* Taille uniforme pour les autres logos */
+  width: auto;
+}
+
+/* Compteur de vues */
+#view-counter {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  font-size: 14px;
   color: white;
-  text-decoration: none;
-  border-radius: 30px;
-  border: 2px solid rgba(255,0,0,0.6);
-  transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
+  font-family: 'Space Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  opacity: 0.8;
 }
-.button:hover {
-  background: rgba(255,0,0,0.6);
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(255,0,0,0.6);
-}
-.button:active {
-  transform: translateY(2px);
+#view-counter img {
+  width: 18px;
+  height: auto;
 }
