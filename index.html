@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <!-- Écran d'intro -->
   <div id="intro">
     <h1 class="intro-title">Seven</h1>
@@ -16,19 +17,36 @@
     <div class="particles"></div>
   </div>
 
+  <!-- Vidéo de fond (uniquement pour le contenu principal) -->
+  <video loop playsinline id="bg-video" style="display: none;">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+
   <!-- Contenu principal -->
   <div class="container" style="display: none;">
     <img src="https://wallpapercave.com/wp/wp4999033.jpg" alt="Photo de profil" class="profile-image">
     <h1>Seven</h1>
-    <h2>Future osu GOAT :3</h2>
+    <h2>Just need to make money</h2>
     <div class="links">
-      <a href="https://osu.ppy.sh/users/29304184" target="_blank" class="button">osu</a>
-      <a href="https://www.instagram.com/sami.flw/" target="_blank" class="button">insta</a>
-      <a href="https://discord.gg/gEnVNcXj" target="_blank" class="button">discord</a>
+      <a href="https://osu.ppy.sh/users/29304184" target="_blank" class="logo-button">
+        <img src="https://r2.guns.lol/d065899d-2e97-44d1-9193-62b539f6d66d.png" alt="osu" class="osu-logo">
+      </a>
+      <a href="https://www.instagram.com/sami.flw/" target="_blank" class="logo-button">
+        <img src="https://logodownload.org/wp-content/uploads/2017/04/instagram-logo-16.png" alt="Instagram" class="logo">
+      </a>
+      <a href="https://www.tiktok.com/@sami.7128?lang=fr" target="_blank" class="logo-button">
+        <img src="https://logodownload.org/wp-content/uploads/2019/08/tiktok-logo-icon-1.png" alt="TikTok" class="logo">
+      </a>
     </div>
   </div>
 
-  <!-- Musique -->
+  <!-- Compteur de vues -->
+  <div id="view-counter">
+    <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="vue">
+    <span id="view-count">0 vues</span>
+  </div>
+
+  <!-- Musique perso -->
   <audio id="music" loop autoplay preload="auto">
     <source src="musique.mp3.m4a" type="audio/mpeg">
     Votre navigateur ne supporte pas l'audio.
@@ -39,12 +57,11 @@
       const intro = document.getElementById('intro');
       const container = document.querySelector('.container');
       const music = document.getElementById('music');
+      const video = document.getElementById('bg-video');
       const particleContainer = intro.querySelector('.particles');
 
-      // lancer la musique
-      music.play().catch(()=>{}); // catch pour éviter blocages navigateur
+      music.play().catch(() => {});
 
-      // générer 100 particules
       for (let i = 0; i < 100; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
@@ -56,14 +73,22 @@
         particleContainer.appendChild(p);
       }
 
-      // clic pour passer à la suite
       intro.addEventListener('click', () => {
         intro.style.opacity = '0';
         setTimeout(() => {
           intro.style.display = 'none';
           container.style.display = 'flex';
+          video.style.display = 'block';
+          video.play().catch(() => {});
         }, 1000);
       });
+
+      // Compteur de vues (localStorage simulé)
+      const countEl = document.getElementById('view-count');
+      let count = localStorage.getItem('view-count') || 0;
+      count++;
+      localStorage.setItem('view-count', count);
+      countEl.textContent = count + ' vues';
     });
   </script>
 </body>
