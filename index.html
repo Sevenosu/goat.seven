@@ -8,17 +8,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Page d'intro -->
+  <!-- Écran d'intro -->
   <div id="intro">
-    <h1>Seven</h1>
+    <h1 class="intro-title">Seven</h1>
+    <p class="intro-text">Clique pour entrer</p>
+    <!-- Particules rouges -->
+    <div class="particles"></div>
   </div>
 
-  <!-- Contenu du site -->
-  <div class="container">
+  <!-- Contenu principal -->
+  <div class="container" style="display: none;">
     <img src="https://wallpapercave.com/wp/wp4999033.jpg" alt="Photo de profil" class="profile-image">
     <h1>Seven</h1>
     <h2>Future osu GOAT :3</h2>
-
     <div class="links">
       <a href="https://osu.ppy.sh/users/29304184" target="_blank" class="button">osu</a>
       <a href="https://www.instagram.com/sami.flw/" target="_blank" class="button">insta</a>
@@ -26,14 +28,42 @@
     </div>
   </div>
 
+  <!-- Musique -->
+  <audio id="music" loop autoplay preload="auto">
+    <source src="musique.mp3.m4a" type="audio/mpeg">
+    Votre navigateur ne supporte pas l'audio.
+  </audio>
+
   <script>
-    // Quand l'utilisateur clique sur l'écran, on enlève la page d'intro
-    document.getElementById('intro').addEventListener('click', function() {
-      this.style.opacity = '0';  // Début de la disparition
-      this.style.pointerEvents = 'none'; // Empêche toute interaction après disparition
-      setTimeout(() => {
-        this.style.display = 'none';  // Cache complètement après l'animation
-      }, 1000);  // Attendre la fin de l'animation
+    window.addEventListener('load', () => {
+      const intro = document.getElementById('intro');
+      const container = document.querySelector('.container');
+      const music = document.getElementById('music');
+      const particleContainer = intro.querySelector('.particles');
+
+      // lancer la musique
+      music.play().catch(()=>{}); // catch pour éviter blocages navigateur
+
+      // générer 100 particules
+      for (let i = 0; i < 100; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 3 + 2;
+        p.style.width = p.style.height = size + 'px';
+        p.style.top  = Math.random() * 100 + '%';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        particleContainer.appendChild(p);
+      }
+
+      // clic pour passer à la suite
+      intro.addEventListener('click', () => {
+        intro.style.opacity = '0';
+        setTimeout(() => {
+          intro.style.display = 'none';
+          container.style.display = 'flex';
+        }, 1000);
+      });
     });
   </script>
 </body>
